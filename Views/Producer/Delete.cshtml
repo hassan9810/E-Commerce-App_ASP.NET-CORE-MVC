@@ -1,0 +1,62 @@
+﻿@model Producer
+
+@{
+    ViewData["Title"] = "Delete an Producer";
+}
+
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h2 class="text-center text-success">
+                Delete Producer @Model.FullName
+            </h2>
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                    <div class="form-group text-center">
+                        <img class="border-info rounded-circle" style="max-width:150px" id="PicturePreview" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ProfilePictureURL" class="control-label mb-1"></label>
+                    <input asp-for="ProfilePictureURL" class="form-control mb-2" readonly />
+                        <span asp-validation-for="ProfilePictureURL" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="FullName" class="control-label mb-1"></label>
+                    <input asp-for="FullName" class="form-control mb-2" readonly />
+                        <span asp-validation-for="FullName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Bio" class="control-label mb-1"></label>
+                    <input asp-for="Bio" class="form-control mb-3" readonly />
+                        <span asp-validation-for="Bio" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                    <form asp-action="Delete" onsubmit="return confirmDelete();">
+                            <input type="hidden" asp-for="Id" />
+                            <input type="submit" value="Delete!" class="btn btn-danger float-end" />
+                        </form>
+                    <a class="btn btn-outline-secondary" asp-action="Index">Show All Producers</a>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script>
+        function confirmDelete() {
+            var customTitle = "Confirmation Delete";
+            var message = "Are you sure to delete this Producer?";
+
+            if (window.confirm(message)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        $(document).ready(function () {
+            var output = document.getElementById('PicturePreview');
+            output.src = $(ProfilePictureURL).val();
+        });
+    </script>
+}
